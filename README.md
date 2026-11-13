@@ -72,15 +72,36 @@ node index.js
 
 ## Getting Cookie (Required)
 
-MeyHub uses Twitter OAuth + session cookies. You need to authenticate once in browser:
+MeyHub uses **Twitter OAuth 2.0 + PKCE** for auth. The server sets an **HttpOnly session cookie** after you authorize. You need to extract this cookie from your browser.
 
-1. Open https://meyhub.io/claim in browser
-2. Click "Connect with X" → authorize on Twitter
-3. Click "Follow @MeyReal_io" → follow on Twitter
-4. Click "Connect Wallet" → sign message in wallet
-5. Open DevTools (F12) → Application → Cookies → meyhub.io
-6. Copy ALL cookies as: `key1=val1; key2=val2; ...`
-7. Paste into `accounts.json` → `cookie` field
+### Step-by-step:
+
+1. Open https://meyhub.io/claim in Chrome
+2. Click **"Connect with X"** → login Twitter → click **"Authorize"**
+3. You'll be redirected back to meyhub.io/claim
+4. Open **DevTools (F12)** → go to **Application** tab
+5. Left sidebar: **Cookies** → click `https://meyhub.io`
+6. Look for the session cookie (likely named one of):
+   - `next-auth.session-token`
+   - `__Secure-next-auth.session-token`
+   - `meyhub.session`
+   - `sid`
+   - Or any **HttpOnly** cookie with a long value
+7. Copy the **full cookie string**: `cookieName=cookieValue`
+
+### Alternative (easier):
+
+1. After OAuth redirect, open **DevTools (F12)** → **Network** tab
+2. Refresh the page (F5)
+3. Click any request to `/api/quiz/status` or `/api/leaderboard`
+4. In the **Request Headers** section, find the **Cookie** header
+5. Copy the **full Cookie header value** (everything after `Cookie: `)
+6. Paste into `accounts.json` → `cookie` field
+
+### Example cookie format:
+```
+next-auth.session-token=eyJhbGciOiJFUzI1NiIs...; __cf_bm=abc123...
+```
 
 ## Usage
 
@@ -146,6 +167,18 @@ meyhub-bot/
     ├── banner.js      # LYID watermark
     └── utils.js       # Helpers (delay, JSON, config)
 ```
+
+## Bukti run (dari bot sendiri, bukan mockup)
+
+![MeyHub quiz daily run](docs/screenshots/run.png)
+
+Kartu di atas dirender dari `logs.txt` milik bot — run kuis harian yang benar-benar terjadi:
+4 task prasyarat selesai, 6/6 jawaban benar, `SURVIVED! All 6 questions correct! You split the
+daily pool` (pool hari itu 3.552 MEY). Email akun di-mask jadi `acc01`.
+
+Catatan jujur: cookie sesi akun di `accounts.json` sekarang sudah expired ("Session expired.
+Re-authenticate in browser"), jadi kartu ini adalah run terakhir yang tercatat, bukan run baru.
+Untuk run baru, ambil ulang cookie lewat langkah di bagian *Getting Cookie*.
 
 ## Troubleshooting
 
