@@ -1,6 +1,25 @@
-# MeyHub Quiz Bot
+# MeyHub Bot
+
+**Versi:** 1.0.0 · **Harga:** Rp 120.000 (~$8) · **Kontak pembelian:** [@rmndkyl](https://t.me/rmndkyl)
 
 Daily knockout quiz automation for **Mey Network** airdrop on meyhub.io.
+
+## Kebutuhan
+
+| Item | Detail |
+|---|---|
+| Runtime | Node.js 18+ |
+| Wallet | EVM / sesuai chain proyek (kamu sendiri) |
+| Proxy | tidak perlu |
+| Captcha | tidak perlu |
+| Akses | akun proyek yang kamu kelola sendiri |
+
+## Pembayaran
+
+E-Wallet: DANA / GoPay / ShopeePay · Bank: BCA / Seabank · Crypto: contact for wallet address.
+Pembeli menghubungi [@rmndkyl](https://t.me/rmndkyl), kirim bukti transfer, lalu terima license key.
+
+---
 
 ## What is Mey Network?
 
@@ -139,7 +158,6 @@ node index.js --daily  # Auto-run quiz for all accounts
 | Project | Mey Network |
 | Token | MEY |
 | Chain | Base (L2) |
-| Contract | 0x8bFac1B375bF2894D6f12Fb2eB48B1c1A7916789 |
 | Price | ~$0.047 |
 | Market Cap | ~$12.6M |
 | FDV | ~$108M |
@@ -156,7 +174,6 @@ node index.js --daily  # Auto-run quiz for all accounts
 meyhub-bot/
 ├── index.js           # CLI menu + entry point
 ├── config.json        # Configuration
-├── accounts.json      # Per-wallet: email, privateKey, cookie
 ├── .env               # LLM API key
 ├── src/
 │   ├── api.js         # API client (cookie-based auth)
